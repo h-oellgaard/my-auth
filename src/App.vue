@@ -1,7 +1,14 @@
 <script setup>
+import DisplayUser from './components/DisplayUser.vue';
 import HelloWorld from './components/HelloWorld.vue'
 import Login from './components/Login.vue';
+import { ref } from 'vue';
 
+const user = ref(null); // Hold the logged-in user's data
+
+const handleUserLogin = (loggedInUser) => {
+  user.value = loggedInUser; // Store the user data
+};
 </script>
 
 <template>
@@ -14,8 +21,9 @@ import Login from './components/Login.vue';
     </a>
   </div>
   <HelloWorld msg="Vite + Vue" />
-  <Login />
-  
+  <!-- Pass the handleUserLogin method to the Login component and listen for event -->
+  <Login @login="handleUserLogin" />
+  <DisplayUser v-if="user" :user="user" />
 </template>
 
 <style scoped>

@@ -18,12 +18,17 @@
 <script setup>
 import { ref } from 'vue';
 import { login } from '../services/firebase.service';   
+// Define the 'emit' function
+const emit = defineEmits(['login']);  // 'login' is the event name
+
 const username = ref('');
 const password = ref('');
 const user = ref(null);
 const handleLogin = () => {
-    login(username.value, password.value).then(e => {
-        console.log('Logged in successfully', e.email);
+    login(username.value, password.value).then(user => {
+        console.log('Logged in successfully', user.email);
+          // Emit the logged-in user data to the parent
+        emit('login', user);
         
     }).catch((error) => {
         console.error('Error logging in:', error);
