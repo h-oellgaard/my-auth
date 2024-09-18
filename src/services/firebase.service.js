@@ -1,5 +1,6 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from './firebaseConfig'; // Import the Firebase database
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 
 // Your web app's Firebase configuration
@@ -37,6 +38,7 @@ export const signup = async (email, password) => {
 export const login = async (email, password) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    console.log(userCredential.user);
     return userCredential.user;
   } catch (error) {
     console.error("Error during signup:", error.message); // Log the error
@@ -45,3 +47,4 @@ export const login = async (email, password) => {
 
   }
 };
+
